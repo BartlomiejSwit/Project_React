@@ -1,53 +1,50 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { createTheme } from '@mui/material';
-import { ThemeProvider } from '@emotion/react';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { ThemeProvider } from "@emotion/react";
+import { createTheme } from "@mui/material";
 
-/* var themeColor = light;
-export const themeOptions = {
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: '#3f51b5',
-    },
-    secondary: {
-      main: '#f50057',
-    },
-  },
-}; */
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 export const themeOptions = {
   palette: {
-    mode: 'dark',
+    mode: "dark",
     primary: {
-      main: '#00c853',
+      main: "#bb453a",
     },
     secondary: {
-      main: '#ffff00',
+      main: "#f50057",
+    },
+    background: {
+      default: "#121212",
+      paper: "#1e1e1e",
     },
     text: {
-      primary: '#c62828',
-      secondary: '#ffebee',
-      disabled: '#bdbdbd',
+      primary: "#ffffff",
+      secondary: "#aaaaaa",
+    },
+  },
+  typography: {
+    h3: {
+      fontFamily: "Roboto",
+      fontSize: "1.9rem",
+      fontWeight: 600,
+      lineHeight: 1.98,
+      color: "#ffffff",
+    },
+    button: {
+      fontSize: "2.3rem",
+      color: "#ffffff",
     },
   },
 };
-
 const theme = createTheme(themeOptions);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

@@ -1,22 +1,49 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { TextField, InputAdornment, IconButton } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { useState, useEffect, useCallback } from "react";
 
-async function logMovies() {
-    const response = await fetch("http://example.com/movies.json");
-    const movies = await response.json();
-    console.log(movies);
-  }
+export const Searchbar = ({ setRecipes }) => {
+  const [query, setQuery] = useState("chicken");
+  const [error, setError] = useState(null);
 
-export default function FullWidthTextField() {
+  const fetchRecipes = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=29571d4a&app_key=63d060efa6a9df1a240486514bdeb7b2`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setRecipes(data.hits);
+    } catch (error) {
+      setError(error.message);
+      console.error('Error fetching recipes:', error);
+    }
+  }, [query, setRecipes]);
+
+  const handleChange = (event) => {
+    setQuery(event.target.value);
+  };
+
+  useEffect(() => {
+    fetchRecipes();
+  }, [fetchRecipes]);
+
   return (
-    <Box
-      sx={{
-        width: 500,
-        maxWidth: '100%',
+    <TextField
+      label="Wyszukaj"
+      onChange={handleChange}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton onClick={fetchRecipes}>
+              <SearchIcon />
+            </IconButton>
+          </InputAdornment>
+        ),
       }}
-    >
-      <TextField fullWidth label="fullWidth" id="fullWidth" />
-    </Box>
+      fullWidth
+    />
   );
-}
+};
