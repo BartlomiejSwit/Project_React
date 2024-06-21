@@ -9,7 +9,7 @@ export const Searchbar = ({ setRecipes }) => {
   const fetchRecipes = useCallback(async () => {
     try {
       const response = await fetch(
-        `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=29571d4a&app_key=63d060efa6a9df1a240486514bdeb7b2`
+        `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=4d7616f0&app_key=9367ccec786955eb17f979f6ea990d4a`
       );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
